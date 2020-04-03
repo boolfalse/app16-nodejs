@@ -2,7 +2,6 @@
 
 module.exports = (sequelize, DataTypes) => {
     const Application = sequelize.define('Application', {
-
         qr_token: {
             type: DataTypes.STRING(256),
             defaultValue: ''
@@ -11,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(256),
             defaultValue: ''
         },
-
         first_name: {
             type: DataTypes.STRING(50),
             defaultValue: ''
@@ -24,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(50),
             defaultValue: ''
         },
-
         out_address: {
             type: DataTypes.STRING(256),
             defaultValue: ''
@@ -38,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         out_longitude: {
             type: DataTypes.STRING
         },
-
         visiting_address_and_name: {
             type: DataTypes.STRING(256),
             defaultValue: ''
@@ -56,7 +52,6 @@ module.exports = (sequelize, DataTypes) => {
         planned_return_datetime: {
             type: DataTypes.DATE
         },
-
         finished_at: {
             type: DataTypes.DATE
         },
@@ -73,12 +68,18 @@ module.exports = (sequelize, DataTypes) => {
         deleted_at: {
             type: DataTypes.DATE
         },
-
     }, {
         tableName: 'applications',
         freezeTableName: true,
-        timestamps: false
+        // timestamps: false,
+        underscored: true,
+        charset: 'utf8',
+        collate: 'utf8_general_ci'
     });
+
+    Application.associate = function(models) {
+        // associations can be defined here
+    };
 
     return Application;
 };

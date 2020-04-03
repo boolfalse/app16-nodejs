@@ -22,7 +22,14 @@ function init() {
 }
 
 async function getCurrentApplication(req, res) {
-    return response.success(res, 200, 'success');
+    const deviceToken = req.query.device_token;
+
+    const data = await applicationController.getCurrentApplication(deviceToken);
+    if (_isEmpty(data)) {
+        return response.error(res, 404, "Տվյալները չեն գտնվել");
+    }
+
+    return response.success(res, 200, data);
 }
 
 async function listApplications(req, res) {
