@@ -4,7 +4,8 @@
   "description": "Back-end API for X-Tech/app16-backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,23 @@
   "bugs": {
     "url": "https://github.com/boolfalse/app16-nodejs/issues"
   },
-  "homepage": "https://github.com/boolfalse/app16-nodejs#readme"
+  "homepage": "https://github.com/boolfalse/app16-nodejs#readme",
+  "dependencies": {
+    "ajv": "^6.12.0",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.1",
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "hpp": "^0.2.3",
+    "lodash": "^4.17.15",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }

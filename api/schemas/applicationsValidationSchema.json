@@ -1,0 +1,54 @@
+{
+  "getSchema": {
+    "type": "object",
+    "required": [
+      "id"
+    ]
+  },
+  "postSchema": {
+    "type": "object",
+    "properties": {
+      "first_name": {
+        "type": "string",
+        "minimum": 1,
+        "maximum": 50
+      },
+      "middle_name": {
+        "type": "string",
+        "minimum": 1,
+        "maximum": 50
+      },
+      "last_name": {
+        "type": "string",
+        "minimum": 1,
+        "maximum": 50
+      }
+    }
+  },
+  "putSchema": {
+    "type": "object",
+    "properties": {
+      "first_name": {
+        "type": "string",
+        "minimum": 1,
+        "maximum": 50
+      },
+      "middle_name": {
+        "type": "string",
+        "minimum": 1,
+        "maximum": 50
+      },
+      "last_name": {
+        "type": "string",
+        "minimum": 1,
+        "maximum": 50
+      }
+    }
+  },
+  "deleteSchema": {
+    "type": "object",
+    "required": [
+      "id"
+    ]
+  }
+}
