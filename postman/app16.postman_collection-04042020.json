@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "ada1d110-41f3-49bc-a612-9deee1eb4694",
+		"name": "app16",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Applications",
+			"item": [
+				{
+					"name": "Current Application",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{APP16_URL}}/api/v1/applications/current?device_token=aaa",
+							"host": [
+								"{{APP16_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"applications",
+								"current"
+							],
+							"query": [
+								{
+									"key": "device_token",
+									"value": "aaa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Applications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{APP16_URL}}/api/v1/applications?device_token=aaa",
+							"host": [
+								"{{APP16_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"applications"
+							],
+							"query": [
+								{
+									"key": "device_token",
+									"value": "aaa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Application QR code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{APP16_URL}}/api/v1/applications/qr_code?device_token=aaa",
+							"host": [
+								"{{APP16_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"applications",
+								"qr_code"
+							],
+							"query": [
+								{
+									"key": "device_token",
+									"value": "aaa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"device_token\": \"bbb\",\n\t\"first_name\": \"bbb\",\n\t\"middle_name\": \"bbb\",\n\t\"last_name\": \"bbb\",\n\t\"out_datetime\": \"2020-04-04 12:33:27\",\n\t\"out_address\": \"bbb\",\n\t\"visiting_address_and_name\": \"bbb\",\n\t\"visiting_reason\": \"bbb\",\n\t\"planned_return_datetime\": \"2020-04-04 13:33:27\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{APP16_URL}}/api/v1/applications",
+							"host": [
+								"{{APP16_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finish Application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"device_token\": \"bbb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{APP16_URL}}/api/v1/applications/finish",
+							"host": [
+								"{{APP16_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"applications",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete App by dev-token",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"device_token\": \"bbb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{APP16_URL}}/api/v1/applications",
+							"host": [
+								"{{APP16_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete App by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"device_token\": \"aaa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{APP16_URL}}/api/v1/applications/1",
+							"host": [
+								"{{APP16_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"applications",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APP16_URL}}/",
+					"host": [
+						"{{APP16_URL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fd49e8cd-8760-42e6-999c-a25c91687043",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "698537e4-b6a9-4f72-8eb8-2c5fd02f955d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "3e76de89-ba72-4269-a116-dd61a203dab6",
+			"key": "APP16_URL",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
