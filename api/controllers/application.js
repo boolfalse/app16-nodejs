@@ -1,6 +1,6 @@
 'use strict';
 
-const _isEmpty = require('lodash/isEmpty');
+const applicationFormatter = require('../../api/helpers/applicationFormatter');
 
 const {
     Application,
@@ -9,9 +9,10 @@ const {
 class ApplicationController {
 
     static async getCurrentApplication(deviceToken) {
-        const applications = await Application.findOne({
+        const application = await Application.findOne({
             where: {
-                device_token: deviceToken
+                device_token: deviceToken,
+                finished_at: null
             },
             attributes: [
                 'id',
@@ -28,7 +29,9 @@ class ApplicationController {
             ],
         });
 
-        return applications;
+        application.dataValues = applicationFormatter.formatTime(application.dataValues);
+
+        return application;
     };
 
     static async insertApplication() {
