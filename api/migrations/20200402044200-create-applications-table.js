@@ -9,7 +9,6 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-
             qr_token: {
                 allowNull: false,
                 type: Sequelize.STRING(256),
@@ -21,7 +20,6 @@ module.exports = {
                 type: Sequelize.STRING(256),
                 defaultValue: ''
             },
-
             first_name: {
                 allowNull: false,
                 type: Sequelize.STRING(50),
@@ -37,7 +35,6 @@ module.exports = {
                 type: Sequelize.STRING(50),
                 defaultValue: ''
             },
-
             out_address: {
                 allowNull: false,
                 type: Sequelize.STRING(256)
@@ -54,7 +51,6 @@ module.exports = {
                 allowNull: true,
                 type: Sequelize.DECIMAL(9,6)
             },
-
             visiting_address_and_name: {
                 allowNull: false,
                 type: Sequelize.STRING(256)
@@ -75,7 +71,6 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.DATE
             },
-
             finished_at: {
                 allowNull: true,
                 type: Sequelize.DATE
