@@ -12,39 +12,41 @@ const iValidator = require('../../common/iValidator');
 const router = express.Router();
 
 function init() {
-    router.route('/get').get(getApplications);
-    router.route('/create').post(insertApplication);
+    router.route('/current').get(getCurrentApplication);
+    router.route('/').get(listApplications);
+    router.route('/qr_code').get(applicationQRCode);
+    router.route('/').post(createApplication);
+    router.route('/finish').post(finishApplication);
+    router.route('/').delete(deleteApplicationByDeviceToken);
+    router.route('/:application_id').delete(deleteApplicationById);
 }
 
-async function getApplications(req, res) {
-    const data = await applicationController.getApplications(req.user.id);
-
-    if (_isEmpty(data)) {
-        return response.error(res, 404, "No Applications yet.");
-    }
-
-    return response.success(res, 200, data);
+async function getCurrentApplication(req, res) {
+    return response.success(res, 200, 'success');
 }
 
-async function insertApplication(req, res) {
-    const {scheduleObject} = req.body;
+async function listApplications(req, res) {
+    return response.success(res, 200, 'success');
+}
 
-    if (_isEmpty(scheduleObject)) {
-        return response.error(res, 422, 'scheduleObject object not present.');
-    }
+async function applicationQRCode(req, res) {
+    return response.success(res, 200, 'success');
+}
 
-    const json_format = iValidator.json_schema(schemas.postSchema, scheduleObject);
-    if (json_format.valid === false) {
-        return response.error(res, 422, json_format.errorMessage.error.details.messages);
-    }
+async function createApplication(req, res) {
+    return response.success(res, 200, 'success');
+}
 
-    const data = await applicationController.insertApplication(req.user.id, scheduleObject);
+async function finishApplication(req, res) {
+    return response.success(res, 200, 'success');
+}
 
-    if (_isEmpty(data)) {
-        return response.error(res, 404, '{"status": 1}');
-    }
+async function deleteApplicationByDeviceToken(req, res) {
+    return response.success(res, 200, 'success');
+}
 
-    return response.success(res, 200, "success");
+async function deleteApplicationById(req, res) {
+    return response.success(res, 200, 'success');
 }
 
 init();
