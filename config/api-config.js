@@ -3,7 +3,7 @@ const hpp = require('hpp');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const express = require("express");
+const express = require('express');
 
 const app = express();
 
@@ -36,10 +36,10 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/application', ApplicationRoutes);
 app.use('/', MainRoutes);
+app.use('/api/v1/applications', ApplicationRoutes);
 
-app.use(express.static('uploads'));
+// app.use(express.static('uploads'));
 
 process.on('uncaughtException', function(err) {
     console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
