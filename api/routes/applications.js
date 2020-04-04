@@ -33,7 +33,11 @@ async function getCurrentApplication(req, res) {
 }
 
 async function listApplications(req, res) {
-    return response.success(res, 200, 'success');
+    const deviceToken = req.query.device_token;
+
+    const data = await applicationController.getApplicationsList(deviceToken);
+
+    return response.success(res, 200, data);
 }
 
 async function applicationQRCode(req, res) {
