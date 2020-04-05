@@ -14,23 +14,37 @@ class ApplicationController {
                 device_token: deviceToken
             },
             attributes: [
-                'id',
-                'device_token',
+                // 'id',
+                // 'device_token',
                 'first_name',
                 'middle_name',
                 'last_name',
-                'out_address',
                 'out_datetime',
+                'out_address',
                 'visiting_address_and_name',
                 'visiting_reason',
                 'planned_return_datetime',
-                'finished_at',
-                'created_at',
+                // 'finished_at',
+                // 'created_at',
             ],
         });
 
         return application;
     };
+
+    static generateQRInputString(applicationDataValues) {
+        const formattedApplication = applicationFormatter.formatTime(applicationDataValues);
+        const qrInputString = "\n" +
+            formattedApplication.first_name + " " + formattedApplication.middle_name + " " + formattedApplication.last_name + "\n" +
+            "---\n" +
+            formattedApplication.out_datetime + "\n" +
+            formattedApplication.out_address + "\n" +
+            formattedApplication.visiting_address_and_name + "\n" +
+            formattedApplication.visiting_reason + "\n" +
+            formattedApplication.planned_return_datetime + "\n";
+
+        return qrInputString;
+    }
 
     static async getCurrentApplication(deviceToken) {
         const application = await Application.findOne({
@@ -84,21 +98,6 @@ class ApplicationController {
         }
 
         return applications;
-    }
-
-    static async getApplicationQRCode(deviceToken) {
-        const application = await Application.findOne({
-            where: {
-                device_token: deviceToken,
-                finished_at: null
-            },
-            attributes: [
-                'id',
-                'device_token',
-            ],
-        });
-
-        return application;
     }
 
     static async insertApplication() {

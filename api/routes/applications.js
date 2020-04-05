@@ -50,13 +50,10 @@ async function applicationQRCode(req, res) {
         return response.error(res, 404, "Տվյալները չեն գտնվել");
     }
 
-    // const device_token = application.dataValues.device_token;
-    // const domain = process.env.PUBLIC_URL + ':' + process.env.PORT;
-    // const url = domain + '/' + deviceToken + '.png';
-    // const filePath = path.join(__dirname, './../../qr-codes' + '/' + deviceToken + '.png');
-
-    const code = qrImage.image('test', { type: 'png' });
+    const qrInputString = applicationController.generateQRInputString(application.dataValues);
+    const code = qrImage.image(qrInputString, { type: 'png' });
     res.type('png');
+
     code.pipe(res);
 }
 
