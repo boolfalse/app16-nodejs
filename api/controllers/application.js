@@ -67,7 +67,9 @@ class ApplicationController {
             ],
         });
 
-        application.dataValues = applicationFormatter.formatTime(application.dataValues);
+        if (application) {
+            application.dataValues = applicationFormatter.formatTime(application.dataValues);
+        }
 
         return application;
     };
@@ -100,11 +102,12 @@ class ApplicationController {
         return applications;
     }
 
-    static async insertApplication() {
-        const data = {};
-        await Application.create(data);
+    static async createApplication(data) {
+        const application = await Application.create(data);
 
-        return 'success'
+        // console.log(data);
+
+        return application;
     }
 
 }

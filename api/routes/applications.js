@@ -58,7 +58,11 @@ async function applicationQRCode(req, res) {
 }
 
 async function createApplication(req, res) {
-    return response.success(res, 200, 'success');
+    const data = req.body;
+
+    const application = await applicationController.createApplication(data);
+
+    return response.success(res, 200, application);
 }
 
 async function finishApplication(req, res) {
