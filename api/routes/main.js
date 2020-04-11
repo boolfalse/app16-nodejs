@@ -9,7 +9,7 @@ function init() {
 }
 
 async function mainUrl(req, res) {
-    return response.error(res, 404, "Main Page. Results not found!");
+    return response.success(res, 200, "All is OK. The app running successfully...");
 }
 
 init();
