@@ -66,11 +66,44 @@ async function createApplication(req, res) {
 }
 
 async function finishApplication(req, res) {
-    return response.success(res, 200, 'success');
+    const deviceToken = req.body.device_token;
+
+    if (!deviceToken) {
+        return response.error(res, 404, "Տվյալները չեն գտնվել");
+    }
+
+    const application = await applicationController.finishApplication(deviceToken);
+
+    if (application) {
+        return response.success(res, 200, application);
+    } else {
+        return response.error(res, 404, "Տվյալները չեն գտնվել");
+    }
 }
 
 async function deleteApplicationByDeviceToken(req, res) {
-    return response.success(res, 200, 'success');
+    const deviceToken = req.body.device_token;
+
+    const errorFields = [];
+    if (!deviceToken) {
+        errorFields.push({
+            'key': 'device_token',
+            'messages': [
+                "The device token field is required."
+            ]
+        });
+    }
+
+    if (errorFields.length > 0) {
+        const errorMessage = "Դուք ունեք սխալ լրացված դաշտեր";
+        return response.errorWithFields(res, 422, errorMessage, errorFields);
+    }
+
+    const deleted = await applicationController.deleteApplicationByDeviceToken(deviceToken);
+
+    return response.success(res, 200, {
+        'deleted': deleted
+    });
 }
 
 async function deleteApplicationById(req, res) {
