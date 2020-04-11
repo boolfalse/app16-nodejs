@@ -8,6 +8,21 @@ const {
 
 class ApplicationController {
 
+    static applicationAttributes = [
+        'id',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'out_address',
+        'out_datetime',
+        'visiting_address_and_name',
+        'visiting_reason',
+        'planned_return_datetime',
+        'finished_at',
+        'created_at',
+    ];
+
+    // Do not change the retrieved attributes (these attributes are used for generating the QR code)
     static async getApplication(deviceToken) {
         const application = await Application.findOne({
             where: {
@@ -33,7 +48,7 @@ class ApplicationController {
     };
 
     static generateQRInputString(applicationDataValues) {
-        const formattedApplication = applicationFormatter.formatTime(applicationDataValues);
+        const formattedApplication = applicationFormatter.formatTime(applicationDataValues, false, false);
         const qrInputString = "\n" +
             formattedApplication.first_name + " " + formattedApplication.middle_name + " " + formattedApplication.last_name + "\n" +
             "---\n" +
@@ -52,23 +67,11 @@ class ApplicationController {
                 device_token: deviceToken,
                 finished_at: null
             },
-            attributes: [
-                'id',
-                'first_name',
-                'middle_name',
-                'last_name',
-                'out_address',
-                'out_datetime',
-                'visiting_address_and_name',
-                'visiting_reason',
-                'planned_return_datetime',
-                'finished_at',
-                'created_at',
-            ],
+            attributes: this.applicationAttributes,
         });
 
         if (application) {
-            application.dataValues = applicationFormatter.formatTime(application.dataValues);
+            application.dataValues = applicationFormatter.formatTime(application.dataValues, false, false);
         }
 
         return application;
@@ -80,23 +83,11 @@ class ApplicationController {
                 device_token: deviceToken,
                 finished_at: null
             },
-            attributes: [
-                'id',
-                'first_name',
-                'middle_name',
-                'last_name',
-                'out_address',
-                'out_datetime',
-                'visiting_address_and_name',
-                'visiting_reason',
-                'planned_return_datetime',
-                'finished_at',
-                'created_at',
-            ],
+            attributes: this.applicationAttributes,
         });
 
         for (let i = 0; i < applications.length; i++) {
-            applications[0].dataValues = applicationFormatter.formatTime(applications[0].dataValues);
+            applications[0].dataValues = applicationFormatter.formatTime(applications[0].dataValues, false, false);
         }
 
         return applications;
@@ -108,6 +99,31 @@ class ApplicationController {
         // console.log(data);
 
         return application;
+    }
+
+    static async finishApplication(deviceToken) {
+        const application = await Application.findOne({
+            where: {
+                device_token: deviceToken,
+                // finished_at: null
+            },
+            attributes: this.applicationAttributes,
+        });
+
+        if (application) {
+            const finishDate = new Date();
+            await application.update({
+                finished_at: finishDate,
+                updated_at: finishDate
+            });
+
+            application.dataValues = applicationFormatter.formatTime(application.dataValues, true, false);
+            delete application.dataValues.updated_at;
+
+            return application;
+        } else {
+            return false;
+        }
     }
 
 }

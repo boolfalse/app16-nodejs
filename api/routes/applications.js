@@ -66,7 +66,19 @@ async function createApplication(req, res) {
 }
 
 async function finishApplication(req, res) {
-    return response.success(res, 200, 'success');
+    const deviceToken = req.body.device_token;
+
+    if (!deviceToken) {
+        return response.error(res, 404, "Տվյալները չեն գտնվել");
+    }
+
+    const application = await applicationController.finishApplication(deviceToken);
+
+    if (application) {
+        return response.success(res, 200, application);
+    } else {
+        return response.error(res, 404, "Տվյալները չեն գտնվել");
+    }
 }
 
 async function deleteApplicationByDeviceToken(req, res) {

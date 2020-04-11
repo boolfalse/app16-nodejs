@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         tableName: 'applications',
         freezeTableName: true,
-        // timestamps: false,
+        timestamps: false,
         underscored: true,
         charset: 'utf8',
         collate: 'utf8_general_ci'
