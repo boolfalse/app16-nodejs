@@ -107,7 +107,28 @@ async function deleteApplicationByDeviceToken(req, res) {
 }
 
 async function deleteApplicationById(req, res) {
-    return response.success(res, 200, 'success');
+    const deviceToken = req.body.device_token;
+
+    const errorFields = [];
+    if (!deviceToken) {
+        errorFields.push({
+            'key': 'device_token',
+            'messages': [
+                "The device token field is required."
+            ]
+        });
+    }
+
+    if (errorFields.length > 0) {
+        const errorMessage = "Դուք ունեք սխալ լրացված դաշտեր";
+        return response.errorWithFields(res, 422, errorMessage, errorFields);
+    }
+
+    const deleted = await applicationController.deleteApplicationById(deviceToken);
+
+    return response.success(res, 200, {
+        'deleted': deleted
+    });
 }
 
 init();
