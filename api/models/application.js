@@ -2,10 +2,6 @@
 
 module.exports = (sequelize, DataTypes) => {
     const Application = sequelize.define('Application', {
-        qr_token: {
-            type: DataTypes.STRING(256),
-            defaultValue: ''
-        },
         device_token: {
             type: DataTypes.STRING(256),
             defaultValue: ''

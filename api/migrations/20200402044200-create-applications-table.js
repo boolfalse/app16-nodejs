@@ -9,12 +9,6 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            qr_token: {
-                allowNull: false,
-                type: Sequelize.STRING(256),
-                defaultValue: '',
-                unique: true
-            },
             device_token: {
                 allowNull: false,
                 type: Sequelize.STRING(256),
@@ -78,12 +72,12 @@ module.exports = {
             created_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
-                defaultValue: Date.now()
+                // defaultValue: Date.now()
             },
             updated_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
-                defaultValue: Date.now()
+                // defaultValue: Date.now()
             },
             deleted_at: {
                 allowNull: true,
