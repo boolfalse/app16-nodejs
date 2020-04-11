@@ -136,6 +136,15 @@ class ApplicationController {
         return true;
     }
 
+    static async deleteApplicationById(deviceToken) {
+        await Application.destroy({
+            where: {
+                device_token: deviceToken
+            }
+        });
+
+        return true;
+    }
 }
 
 module.exports = ApplicationController;
