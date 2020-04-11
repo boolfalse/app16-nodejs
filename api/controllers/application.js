@@ -1,6 +1,7 @@
 'use strict';
 
 const applicationFormatter = require('../../api/helpers/applicationFormatter');
+const _isEmpty = require('lodash/isEmpty');
 
 const {
     Application,
@@ -61,7 +62,18 @@ class ApplicationController {
         return qrInputString;
     }
 
-    static async getCurrentApplication(deviceToken) {
+    static async validateCurrentApplication(data) {
+        if (_isEmpty(data)) {
+            return "Տվյալները չեն գտնվել";
+        }
+
+        if (data.device_token) {
+            return false;
+        } else {
+            return "Տվյալները չեն գտնվել";
+        }
+    }
+    static async currentApplication(deviceToken) {
         const application = await Application.findOne({
             where: {
                 device_token: deviceToken,
@@ -72,9 +84,16 @@ class ApplicationController {
 
         if (application) {
             application.dataValues = applicationFormatter.formatTime(application.dataValues, false, false);
+        } else {
+            return {
+                error: true,
+                message: "Տվյալները չեն գտնվել",
+            };
         }
 
-        return application;
+        return {
+            output: application
+        };
     };
 
     static async getApplicationsList(deviceToken) {

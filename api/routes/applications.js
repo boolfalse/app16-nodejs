@@ -14,7 +14,7 @@ const iValidator = require('../../common/iValidator');
 const router = express.Router();
 
 function init() {
-    router.route('/current').get(getCurrentApplication);
+    router.route('/current').get(currentApplication);
     router.route('/').get(listApplications);
     router.route('/qr_code').get(applicationQRCode);
     router.route('/').post(createApplication);
@@ -23,15 +23,18 @@ function init() {
     router.route('/:application_id').delete(deleteApplicationById);
 }
 
-async function getCurrentApplication(req, res) {
-    const deviceToken = req.query.device_token;
-
-    const application = await applicationController.getCurrentApplication(deviceToken);
-    if (_isEmpty(application)) {
-        return response.error(res, 404, "Տվյալները չեն գտնվել");
+async function currentApplication(req, res) {
+    const errorMessage = await applicationController.validateCurrentApplication(req.query);
+    if (errorMessage) {
+        return response.error(res, 404, errorMessage);
     }
 
-    return response.success(res, 200, application);
+    const data = await applicationController.currentApplication(req.query.device_token);
+    if (data.error) {
+        return response.error(res, 404, data.message);
+    }
+
+    return response.success(res, 200, data.output);
 }
 
 async function listApplications(req, res) {
