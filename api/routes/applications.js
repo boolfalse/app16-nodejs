@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const _isEmpty = require('lodash/isEmpty');
 const path = require('path');
 const qrImage = require('qr-image');
 
@@ -49,15 +48,24 @@ async function listApplications(req, res) {
 }
 
 async function applicationQRCode(req, res) {
-    const deviceToken = req.query.device_token;
-
-    const application = await applicationController.getApplication(deviceToken);
-    if (_isEmpty(application)) {
-        return response.error(res, 404, "Տվյալները չեն գտնվել");
+    const errorMessage = await applicationController.validateApplicationQRCode(req.query);
+    if (errorMessage) {
+        return response.error(res, 404, errorMessage);
     }
 
-    const qrInputString = applicationController.generateQRInputString(application.dataValues);
-    const code = qrImage.image(qrInputString, { type: 'png' });
+    const data = await applicationController.getApplicationForQR(req.query.device_token);
+
+    if (data.error) {
+        return response.error(res, 404, data.message);
+    }
+
+    const qrInputString = applicationController.generateQRInputString(data.application.dataValues);
+    const code = qrImage.image(qrInputString, {
+        type: 'png',
+        size: 7,
+        margin: 2
+    });
+
     res.type('png');
 
     code.pipe(res);

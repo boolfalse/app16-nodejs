@@ -13,7 +13,6 @@ class ApplicationController {
         if (_isEmpty(data)) {
             return "Տվյալները չեն գտնվել";
         }
-
         if (data.device_token) {
             return false;
         } else {
@@ -47,7 +46,6 @@ class ApplicationController {
         if (_isEmpty(data)) {
             return "Տվյալները չեն գտնվել";
         }
-
         if (data.device_token) {
             return false;
         } else {
@@ -70,6 +68,17 @@ class ApplicationController {
         return {
             output: applications
         };
+    }
+
+    static async validateApplicationQRCode(data) {
+        if (_isEmpty(data)) {
+            return "Տվյալները չեն գտնվել";
+        }
+        if (data.device_token) {
+            return false;
+        } else {
+            return "Տվյալները չեն գտնվել";
+        }
     }
 
     static async createApplication(data) {
@@ -144,7 +153,7 @@ class ApplicationController {
     ];
 
     // Do not change the retrieved attributes (these attributes are used for generating the QR code)
-    static async getApplication(deviceToken) {
+    static async getApplicationForQR(deviceToken) {
         const application = await Application.findOne({
             where: {
                 device_token: deviceToken
@@ -165,7 +174,16 @@ class ApplicationController {
             ],
         });
 
-        return application;
+        if (_isEmpty(application)) {
+            return {
+                error: true,
+                message: "Տվյալները չեն գտնվել",
+            };
+        } else {
+            return {
+                application: application
+            };
+        }
     };
 
     static generateQRInputString(applicationDataValues) {
