@@ -38,11 +38,14 @@ async function currentApplication(req, res) {
 }
 
 async function listApplications(req, res) {
-    const deviceToken = req.query.device_token;
+    const errorMessage = await applicationController.validateListApplications(req.query);
+    if (errorMessage) {
+        return response.error(res, 404, errorMessage);
+    }
 
-    const applications = await applicationController.getApplicationsList(deviceToken);
+    const data = await applicationController.applicationsList(req.query.device_token);
 
-    return response.success(res, 200, applications);
+    return response.success(res, 200, data.output);
 }
 
 async function applicationQRCode(req, res) {
