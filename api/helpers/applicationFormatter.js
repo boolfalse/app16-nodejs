@@ -20,7 +20,7 @@ function formatTime(applicationDataValues, formatFinishedAt = false, formatUpdat
     let intervalInHours = Math.round(duration.asHours());
 
     applicationDataValues.out_datetime = moment(outDatetime).format('MM.DD.YYYY, HH:mm');
-    applicationDataValues.planned_return_datetime = moment(plannedReturnDatetime).format('MM.DD.YYYY, HH:mm') + " (" + intervalInHours + " ժամ տևողությամբ)";
+    applicationDataValues.planned_return_datetime = moment(plannedReturnDatetime).format('MM.DD.YYYY, HH:mm') + " (" + intervalInHours + " hour duration)";
     applicationDataValues.created_at = moment(createdAtDatetime).format('MM.DD.YYYY, HH:mm');
     if (formatFinishedAt) {
         applicationDataValues.finished_at = moment(finishedAtDatetime).format('MM.DD.YYYY, HH:mm');
