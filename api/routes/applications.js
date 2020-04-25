@@ -106,7 +106,7 @@ async function createApplication(req, res) {
     }
 
     if (
-        data.device_token.length < 3 ||
+        data.device_token.length < 3 || // TODO: Add and use config variable for "device_token"
         data.first_name.length < 1 ||
         data.middle_name.length < 1 ||
         data.last_name.length < 1 ||
@@ -138,10 +138,18 @@ async function createApplication(req, res) {
 }
 
 async function finishApplication(req, res) {
-    const deviceToken = req.body.device_token;
+    if (_isEmpty(req.body)) {
+        return response.errorWithFields(res, 422, "Device token was not entered!", [
+            'device_token'
+        ]);
+    }
 
-    if (!deviceToken) {
-        return response.error(res, 404, "Not found!");
+    const deviceToken = req.body.device_token;
+    // TODO: Add and use config variable for "device_token"
+    if (validator.isEmpty(deviceToken) || deviceToken.length < 3) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
     }
 
     const application = await applicationController.finishApplication(deviceToken);
