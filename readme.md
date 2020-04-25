@@ -47,3 +47,7 @@ $ npm start
 - https://stackoverflow.com/a/42500573/7574023
 - https://stackoverflow.com/a/58745027/7574023
 
+### TODOs
+
+- Add and use config variable for "device_token"
+

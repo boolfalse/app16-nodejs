@@ -4,6 +4,7 @@ const express = require('express');
 const _isEmpty = require('lodash/isEmpty');
 const path = require('path');
 const qrImage = require('qr-image');
+const validator = require('validator');
 
 const applicationController = require('../controllers/application');
 const response = require('../../common/response');
@@ -35,7 +36,19 @@ async function getCurrentApplication(req, res) {
 }
 
 async function listApplications(req, res) {
+    if (_isEmpty(req.query)) {
+        return response.errorWithFields(res, 422, "Device token was not entered!", [
+            'device_token'
+        ]);
+    }
+
     const deviceToken = req.query.device_token;
+    // TODO: Add and use config variable for "device_token"
+    if (validator.isEmpty(deviceToken) || deviceToken.length < 3) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
+    }
 
     const applications = await applicationController.getApplicationsList(deviceToken);
 
