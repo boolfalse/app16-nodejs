@@ -18,6 +18,7 @@ $ cd app16/
 
 - Create empty DB
 - Create .env file inside of your project root folder, and define required variables as described in .env.example
+- Set config variables in "config/config.js" and "config/config.json" files (later ignore these)
 
 - Run migrations (and seeds)
 ```
@@ -49,5 +50,5 @@ $ npm start
 
 ### TODOs
 
+- Ignore "config/config.js" and "config/config.json" files
 - Add and use config variable for "device_token"
-
