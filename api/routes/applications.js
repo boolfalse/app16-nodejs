@@ -34,7 +34,11 @@ async function getCurrentApplication(req, res) {
 
     const deviceToken = req.query.device_token;
     // TODO: Add and use config variable for "device_token"
-    if (validator.isEmpty(deviceToken) || deviceToken.length < 3) {
+    if (!deviceToken) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
+    } else if (deviceToken.length < 3) {
         return response.errorWithFields(res, 422, "Device token not valid!", [
             'device_token'
         ]);
@@ -57,7 +61,11 @@ async function listApplications(req, res) {
 
     const deviceToken = req.query.device_token;
     // TODO: Add and use config variable for "device_token"
-    if (validator.isEmpty(deviceToken) || deviceToken.length < 3) {
+    if (!deviceToken) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
+    } else if (deviceToken.length < 3) {
         return response.errorWithFields(res, 422, "Device token not valid!", [
             'device_token'
         ]);
@@ -77,7 +85,11 @@ async function applicationQRCode(req, res) {
 
     const deviceToken = req.query.device_token;
     // TODO: Add and use config variable for "device_token"
-    if (validator.isEmpty(deviceToken) || deviceToken.length < 3) {
+    if (!deviceToken) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
+    } else if (deviceToken.length < 3) {
         return response.errorWithFields(res, 422, "Device token not valid!", [
             'device_token'
         ]);
@@ -146,7 +158,11 @@ async function finishApplication(req, res) {
 
     const deviceToken = req.body.device_token;
     // TODO: Add and use config variable for "device_token"
-    if (validator.isEmpty(deviceToken) || deviceToken.length < 3) {
+    if (!deviceToken) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
+    } else if (deviceToken.length < 3) {
         return response.errorWithFields(res, 422, "Device token not valid!", [
             'device_token'
         ]);
@@ -162,21 +178,22 @@ async function finishApplication(req, res) {
 }
 
 async function deleteApplicationByDeviceToken(req, res) {
-    const deviceToken = req.body.device_token;
-
-    const errorFields = [];
-    if (!deviceToken) {
-        errorFields.push({
-            'key': 'device_token',
-            'messages': [
-                "The device token field is required."
-            ]
-        });
+    if (_isEmpty(req.body)) {
+        return response.errorWithFields(res, 422, "Device token was not entered!", [
+            'device_token'
+        ]);
     }
 
-    if (errorFields.length > 0) {
-        const errorMessage = "Not all fields was entered!";
-        return response.errorWithFields(res, 422, errorMessage, errorFields);
+    const deviceToken = req.body.device_token;
+    // TODO: Add and use config variable for "device_token"
+    if (!deviceToken) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
+    } else if (deviceToken.length < 3) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
     }
 
     const deleted = await applicationController.deleteApplicationByDeviceToken(deviceToken);
@@ -187,21 +204,22 @@ async function deleteApplicationByDeviceToken(req, res) {
 }
 
 async function deleteApplicationById(req, res) {
-    const deviceToken = req.body.device_token;
-
-    const errorFields = [];
-    if (!deviceToken) {
-        errorFields.push({
-            'key': 'device_token',
-            'messages': [
-                "The device token field is required."
-            ]
-        });
+    if (_isEmpty(req.body)) {
+        return response.errorWithFields(res, 422, "Device token was not entered!", [
+            'device_token'
+        ]);
     }
 
-    if (errorFields.length > 0) {
-        const errorMessage = "Not all fields was entered!";
-        return response.errorWithFields(res, 422, errorMessage, errorFields);
+    const deviceToken = req.body.device_token;
+    // TODO: Add and use config variable for "device_token"
+    if (!deviceToken) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
+    } else if (deviceToken.length < 3) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
     }
 
     const deleted = await applicationController.deleteApplicationById(deviceToken);
