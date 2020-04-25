@@ -4,7 +4,6 @@ const express = require('express');
 const _isEmpty = require('lodash/isEmpty');
 const path = require('path');
 const qrImage = require('qr-image');
-const validator = require('validator');
 const moment = require('moment');
 
 const applicationController = require('../controllers/application');
