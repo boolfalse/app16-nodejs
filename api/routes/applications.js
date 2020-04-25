@@ -5,6 +5,7 @@ const _isEmpty = require('lodash/isEmpty');
 const path = require('path');
 const qrImage = require('qr-image');
 const validator = require('validator');
+const moment = require('moment');
 
 const applicationController = require('../controllers/application');
 const response = require('../../common/response');
@@ -100,6 +101,36 @@ async function applicationQRCode(req, res) {
 
 async function createApplication(req, res) {
     const data = req.body;
+    if (_isEmpty(data)) {
+        return response.errorWithFields(res, 422, "Data not entered!", []);
+    }
+
+    if (
+        data.device_token.length < 3 ||
+        data.first_name.length < 1 ||
+        data.middle_name.length < 1 ||
+        data.last_name.length < 1 ||
+        data.out_address.length < 3 ||
+        data.visiting_address_and_name.length < 3 ||
+        data.visiting_reason.length < 3
+    ) {
+        return response.errorWithFields(res, 422, "Entered data not valid!", []);
+    }
+
+    const now = moment.now();
+    const outDatetime = moment(data.out_datetime, "YYYY-MM-DD HH:mm:ss");
+    const plannedReturnDatetime = moment(data.planned_return_datetime, "YYYY-MM-DD HH:mm:ss");
+    if (!outDatetime.isValid() || !plannedReturnDatetime.isValid()) {
+        return response.errorWithFields(res, 422, "Dates not valid!", []);
+    }
+    if (outDatetime.diff(now) < 0 || plannedReturnDatetime.diff(outDatetime) < 0) {
+        return response.errorWithFields(res, 422, "Dates not valid!", []);
+    }
+
+    const existingApplication = await applicationController.getCurrentApplication(data.device_token);
+    if (existingApplication) {
+        return response.error(res, 409, "Already exists!");
+    }
 
     const application = await applicationController.createApplication(data);
 
