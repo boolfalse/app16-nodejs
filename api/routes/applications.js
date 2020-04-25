@@ -25,7 +25,19 @@ function init() {
 }
 
 async function getCurrentApplication(req, res) {
+    if (_isEmpty(req.query)) {
+        return response.errorWithFields(res, 422, "Device token was not entered!", [
+            'device_token'
+        ]);
+    }
+
     const deviceToken = req.query.device_token;
+    // TODO: Add and use config variable for "device_token"
+    if (validator.isEmpty(deviceToken) || deviceToken.length < 3) {
+        return response.errorWithFields(res, 422, "Device token not valid!", [
+            'device_token'
+        ]);
+    }
 
     const application = await applicationController.getCurrentApplication(deviceToken);
     if (_isEmpty(application)) {
