@@ -35,8 +35,15 @@ $ npm i
 $ npm start
 ```
 
+### Postman Collection
+
+- [Published Docs 25.04.2020](https://documenter.getpostman.com/view/1747137/SzfAzmvC?version=latest)
+
+- [Static Link 25.04.2020](https://www.getpostman.com/collections/aa1a219f17b0e5211f2e)
+
+
 ### Resources
 
-https://stackoverflow.com/a/42500573/7574023
-https://stackoverflow.com/a/58745027/7574023
+- https://stackoverflow.com/a/42500573/7574023
+- https://stackoverflow.com/a/58745027/7574023
 
