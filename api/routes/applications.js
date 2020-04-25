@@ -28,7 +28,7 @@ async function getCurrentApplication(req, res) {
 
     const application = await applicationController.getCurrentApplication(deviceToken);
     if (_isEmpty(application)) {
-        return response.error(res, 404, "Տվյալները չեն գտնվել");
+        return response.error(res, 404, "Not found!");
     }
 
     return response.success(res, 200, application);
@@ -47,7 +47,7 @@ async function applicationQRCode(req, res) {
 
     const application = await applicationController.getApplication(deviceToken);
     if (_isEmpty(application)) {
-        return response.error(res, 404, "Տվյալները չեն գտնվել");
+        return response.error(res, 404, "Not found!");
     }
 
     const qrInputString = applicationController.generateQRInputString(application.dataValues);
@@ -69,7 +69,7 @@ async function finishApplication(req, res) {
     const deviceToken = req.body.device_token;
 
     if (!deviceToken) {
-        return response.error(res, 404, "Տվյալները չեն գտնվել");
+        return response.error(res, 404, "Not found!");
     }
 
     const application = await applicationController.finishApplication(deviceToken);
@@ -77,7 +77,7 @@ async function finishApplication(req, res) {
     if (application) {
         return response.success(res, 200, application);
     } else {
-        return response.error(res, 404, "Տվյալները չեն գտնվել");
+        return response.error(res, 404, "Not found!");
     }
 }
 
@@ -95,7 +95,7 @@ async function deleteApplicationByDeviceToken(req, res) {
     }
 
     if (errorFields.length > 0) {
-        const errorMessage = "Դուք ունեք սխալ լրացված դաշտեր";
+        const errorMessage = "Not all fields was entered!";
         return response.errorWithFields(res, 422, errorMessage, errorFields);
     }
 
@@ -120,7 +120,7 @@ async function deleteApplicationById(req, res) {
     }
 
     if (errorFields.length > 0) {
-        const errorMessage = "Դուք ունեք սխալ լրացված դաշտեր";
+        const errorMessage = "Not all fields was entered!";
         return response.errorWithFields(res, 422, errorMessage, errorFields);
     }
 
